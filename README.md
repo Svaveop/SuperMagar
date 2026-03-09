@@ -1,2 +1,3 @@
 # SuperMagar
 SuperMagar is an app for learning Romanian!
+Work in progress...
