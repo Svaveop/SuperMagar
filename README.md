@@ -4,5 +4,6 @@
 - JS juniors trying to make an JS app
 <hr>
 
+
 ## Doc
 https://docs.google.com/document/d/12UkJJaquehCshqdMW3OuFKK4nPMzn1RbQ9SqSABWRHs
