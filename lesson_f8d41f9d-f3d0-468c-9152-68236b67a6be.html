@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vorbesc — Ուսուցման Դաս</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FBF3E8;
+  --navy: #16213E;
+  --terracotta: #D4614A;
+  --gold: #E8A930;
+  --mint: #5BA8A0;
+  --blush: #F0C9B8;
+  --deep: #0D1B2A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--navy); color: white; min-height: 100vh; overflow-x: hidden; }
+
+/* LESSON HEADER */
+.lesson-header {
+  display: flex; align-items: center;
+  padding: 1.5rem 2.5rem; gap: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.03);
+}
+
+.btn-back {
+  display: flex; align-items: center; gap: 0.5rem;
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  font-size: 0.85rem; font-weight: 500;
+  transition: color 0.2s; flex-shrink: 0;
+}
+.btn-back:hover { color: white; }
+
+.lesson-progress-wrap { flex: 1; }
+.lp-label { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-bottom: 0.4rem; }
+.lp-bar-bg { height: 8px; background: rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; }
+.lp-bar-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, var(--terracotta), var(--gold));
+  transition: width 0.5s ease;
+  width: 40%;
+}
+
+.lesson-info-top { text-align: right; flex-shrink: 0; }
+.lit-step { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+.lit-title { font-weight: 600; color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+
+.xp-badge {
+  background: rgba(232,169,48,0.15); border: 1px solid rgba(232,169,48,0.3);
+  border-radius: 50px; padding: 0.4rem 0.9rem;
+  color: var(--gold); font-size: 0.8rem; font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* LESSON BODY */
+.lesson-body {
+  display: grid; grid-template-columns: 1fr 340px;
+  min-height: calc(100vh - 75px);
+}
+
+/* MAIN CONTENT */
+.lesson-main { padding: 3rem 3rem 3rem 3.5rem; }
+
+/* STEP TABS */
+.step-tabs {
+  display: flex; gap: 0.5rem; margin-bottom: 3rem;
+}
+
+.step-tab {
+  padding: 0.45rem 1.1rem; border-radius: 50px;
+  font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.35);
+  background: none;
+}
+
+.step-tab.done { background: rgba(91,168,160,0.2); border-color: var(--mint); color: var(--mint); }
+.step-tab.active { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+
+/* WORD DISPLAY */
+.word-display { margin-bottom: 2.5rem; }
+
+.word-scene {
+  font-size: 4rem; margin-bottom: 1.5rem; text-align: left;
+  animation: floatIn 0.5s ease;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.big-word {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700; line-height: 1;
+  margin-bottom: 0.5rem; animation: floatIn 0.5s 0.1s ease both;
+}
+
+.word-ipa {
+  color: var(--mint); font-size: 1rem; margin-bottom: 0.8rem;
+  animation: floatIn 0.5s 0.15s ease both;
+}
+
+.word-translation {
+  font-size: 1.2rem; color: rgba(255,255,255,0.6);
+  animation: floatIn 0.5s 0.2s ease both;
+}
+
+.word-context {
+  margin-top: 1.5rem;
+  background: rgba(255,255,255,0.05); border-radius: 16px;
+  padding: 1.2rem 1.5rem; border-left: 3px solid var(--terracotta);
+  animation: floatIn 0.5s 0.25s ease both;
+}
+
+.wc-label { font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.5rem; }
+.wc-sentence { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; }
+.wc-sentence strong { color: white; }
+.wc-tr { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-top: 0.3rem; font-style: italic; }
+
+.word-tags { display: flex; gap: 0.5rem; margin-top: 1.2rem; flex-wrap: wrap; animation: floatIn 0.5s 0.3s ease both; }
+.word-tag {
+  background: rgba(255,255,255,0.07); border-radius: 50px;
+  padding: 0.3rem 0.8rem; font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.audio-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(91,168,160,0.15); border: 1px solid rgba(91,168,160,0.3);
+  color: var(--mint); padding: 0.6rem 1.2rem; border-radius: 50px;
+  font-size: 0.85rem; font-weight: 600; cursor: pointer;
+  margin-top: 1.2rem; border-bottom: none;
+  transition: all 0.2s; animation: floatIn 0.5s 0.35s ease both;
+}
+.audio-btn:hover { background: rgba(91,168,160,0.25); }
+
+/* MEMORY HOOK */
+.memory-hook {
+  background: rgba(232,169,48,0.08); border: 1px solid rgba(232,169,48,0.2);
+  border-radius: 20px; padding: 1.5rem;
+  margin-bottom: 2rem; animation: floatIn 0.5s 0.4s ease both;
+}
+
+.mh-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--gold); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.8rem; }
+.mh-text { color: rgba(255,255,255,0.75); font-size: 0.9rem; line-height: 1.7; font-style: italic; }
+.mh-emoji { font-size: 1.5rem; }
+
+/* QUIZ SECTION */
+.quiz-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;
+  animation: floatIn 0.5s 0.1s ease both;
+}
+
+.quiz-sub { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 2rem; animation: floatIn 0.5s 0.15s ease both; }
+
+.options-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.9rem; margin-bottom: 2rem;
+}
+
+.opt-card {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 16px; padding: 1.2rem 1.5rem;
+  cursor: pointer; transition: all 0.2s;
+  font-size: 1rem; font-weight: 500;
+  color: rgba(255,255,255,0.8); text-align: left;
+}
+
+.opt-card:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+.opt-card.selected-correct { background: rgba(91,168,160,0.2); border-color: var(--mint); color: var(--mint); }
+.opt-card.selected-wrong { background: rgba(212,97,74,0.15); border-color: var(--terracotta); color: var(--terracotta); }
+
+.opt-letter {
+  display: inline-block; width: 26px; height: 26px;
+  background: rgba(255,255,255,0.1); border-radius: 6px;
+  text-align: center; line-height: 26px;
+  font-size: 0.8rem; font-weight: 700; margin-right: 0.7rem;
+  color: rgba(255,255,255,0.4);
+}
+
+/* FEEDBACK TOAST */
+.feedback-toast {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1.2rem 1.5rem; border-radius: 16px;
+  margin-top: 1rem; opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s;
+}
+
+.feedback-toast.show { opacity: 1; transform: translateY(0); }
+.feedback-toast.correct { background: rgba(91,168,160,0.15); border: 1px solid rgba(91,168,160,0.3); }
+.feedback-toast.wrong { background: rgba(212,97,74,0.12); border: 1px solid rgba(212,97,74,0.3); }
+
+.ft-icon { font-size: 1.5rem; }
+.ft-title { font-weight: 700; font-size: 0.95rem; }
+.ft-msg { color: rgba(255,255,255,0.6); font-size: 0.83rem; margin-top: 0.2rem; }
+
+/* CONTINUE BTN */
+.btn-continue {
+  background: linear-gradient(135deg, var(--terracotta), #c04030);
+  color: white; padding: 1rem 2.5rem;
+  border-radius: 50px; border: none; cursor: pointer;
+  font-size: 1rem; font-weight: 700;
+  margin-top: 1.5rem; transition: all 0.3s;
+  box-shadow: 0 8px 30px rgba(212,97,74,0.4);
+  display: block; width: 100%; max-width: 300px;
+}
+
+.btn-continue:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212,97,74,0.5); }
+.btn-continue:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* SECTION TABS */
+.content-section { display: none; }
+.content-section.visible { display: block; }
+
+/* RIGHT PANEL */
+.lesson-panel {
+  background: rgba(255,255,255,0.03);
+  border-left: 1px solid rgba(255,255,255,0.07);
+  padding: 2.5rem 2rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+
+/* WORD LIST */
+.panel-section h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: rgba(255,255,255,0.7); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.vocab-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.vocab-item {
+  display: flex; align-items: center;
+  padding: 0.7rem 0.9rem; border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  cursor: pointer; transition: background 0.2s;
+}
+
+.vocab-item:hover { background: rgba(255,255,255,0.08); }
+.vocab-item.current { border-color: var(--terracotta); background: rgba(212,97,74,0.1); }
+.vocab-item.done { opacity: 0.5; }
+
+.vi-word { flex: 1; font-weight: 600; font-size: 0.88rem; }
+.vi-tr { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+.vi-status { font-size: 0.8rem; }
+
+/* HINT BOX */
+.hint-box {
+  background: rgba(232,169,48,0.08);
+  border: 1px solid rgba(232,169,48,0.15);
+  border-radius: 16px; padding: 1.2rem;
+}
+
+.hint-box h4 { color: var(--gold); font-size: 0.85rem; margin-bottom: 0.8rem; }
+.hint-text { color: rgba(255,255,255,0.65); font-size: 0.83rem; line-height: 1.6; }
+
+/* SCORE */
+.score-box {
+  background: rgba(255,255,255,0.04); border-radius: 16px; padding: 1.2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+
+.score-item { text-align: center; }
+.score-val { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; line-height: 1; }
+.score-label { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
+
+/* CONVERSATION SCENE */
+.conv-scene {
+  background: rgba(255,255,255,0.04); border-radius: 20px;
+  padding: 2rem; margin-bottom: 2rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.scene-location { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.5rem; }
+.scene-emoji { font-size: 1.5rem; }
+.scene-name { font-weight: 600; color: rgba(255,255,255,0.7); }
+.scene-sub { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+.chat-bubbles { display: flex; flex-direction: column; gap: 1rem; }
+
+.bubble { max-width: 80%; }
+.bubble.ai { align-self: flex-start; }
+.bubble.user { align-self: flex-end; text-align: right; }
+
+.bubble-inner {
+  padding: 0.9rem 1.2rem; border-radius: 16px;
+  font-size: 0.9rem; line-height: 1.6;
+  display: inline-block;
+}
+
+.bubble.ai .bubble-inner { background: rgba(255,255,255,0.1); border-radius: 16px 16px 16px 4px; }
+.bubble.user .bubble-inner { background: var(--terracotta); border-radius: 16px 16px 4px 16px; }
+.bubble-name { font-size: 0.72rem; color: rgba(255,255,255,0.3); margin-bottom: 0.3rem; }
+
+.mic-area {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1rem; margin-top: 1.5rem;
+}
+
+.mic-btn {
+  width: 70px; height: 70px; border-radius: 50%;
+  background: var(--terracotta); border: none; cursor: pointer;
+  font-size: 1.8rem; transition: all 0.3s;
+  box-shadow: 0 0 0 0 rgba(212,97,74,0.4);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.mic-btn.listening {
+  animation: micPulse 1.5s infinite;
+  background: var(--mint);
+  box-shadow: 0 0 0 0 rgba(91,168,160,0.4);
+}
+
+@keyframes micPulse {
+  0% { box-shadow: 0 0 0 0 rgba(91,168,160,0.6); }
+  70% { box-shadow: 0 0 0 20px rgba(91,168,160,0); }
+  100% { box-shadow: 0 0 0 0 rgba(91,168,160,0); }
+}
+
+.mic-hint { font-size: 0.83rem; color: rgba(255,255,255,0.4); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .lesson-body { grid-template-columns: 1fr; }
+  .lesson-panel { display: none; }
+  .lesson-main { padding: 2rem 1.5rem; }
+  .lesson-header { padding: 1rem 1.5rem; }
+  .options-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="lesson-header">
+  <a href="dashboard.html" class="btn-back">← Ետ</a>
+  <div class="lesson-progress-wrap">
+    <div class="lp-label">Ռեստ. Բառապաշար</div>
+    <div class="lp-bar-bg"><div class="lp-bar-fill" id="progressBar"></div></div>
+  </div>
+  <div class="lesson-info-top">
+    <div class="lit-step" id="stepLabel">Քայլ 2 / 5</div>
+    <div class="lit-title" id="modeLabel">Ռեստ. Բառ</div>
+  </div>
+  <div class="xp-badge">+20 XP</div>
+</header>
+
+<!-- BODY -->
+<div class="lesson-body">
+
+  <!-- MAIN -->
+  <div class="lesson-main">
+
+    <!-- STEP TABS -->
+    <div class="step-tabs">
+      <button class="step-tab done" onclick="goTo(0)">✓ Ծան.</button>
+      <button class="step-tab active" id="tab1" onclick="goTo(1)">Հարց</button>
+      <button class="step-tab" id="tab2" onclick="goTo(2)">Խ/կ.</button>
+      <button class="step-tab" id="tab3" onclick="goTo(3)">Ու/ս</button>
+      <button class="step-tab" id="tab4" onclick="goTo(4)">Ավ.</button>
+    </div>
+
+    <!-- SECTION 1: WORD LEARNING -->
+    <div class="content-section" id="sec0">
+      <div class="word-display">
+        <div class="word-scene">🍷</div>
+        <div class="big-word">Mâncare</div>
+        <div class="word-ipa">/ˈmɨn.ka.re/ <button class="audio-btn" onclick="playAudio()">🔊 Լսել</button></div>
+        <div class="word-translation">Ուտելիք / Կերակուր</div>
+        <div class="word-context">
+          <div class="wc-label">Օրինակ</div>
+          <div class="wc-sentence">Vreau să comand <strong>mâncare</strong> românească.</div>
+          <div class="wc-tr">Ուզում եմ պատվիրել ռումինական ուտելիք։</div>
+        </div>
+        <div class="word-tags">
+          <div class="word-tag">Գոյական</div>
+          <div class="word-tag">Ուտ/կ</div>
+          <div class="word-tag">A2 մ-դ</div>
+        </div>
+      </div>
+      <div class="memory-hook">
+        <div class="mh-label"><div class="mh-emoji">💡</div> Հիշելու հնարք</div>
+        <div class="mh-text">«Mâncare» հիշիր այսպես. «Ման» + «care» = «Ման ման անում ենք, թե ի՞նչ ուտելիք կա»։ Հավատա, կյանքում չես մոռանա։ 😄</div>
+      </div>
+      <button class="btn-continue" onclick="goTo(1)">Հաջ. → Ստուգել Հասկ.</button>
+    </div>
+
+    <!-- SECTION 2: QUIZ -->
+    <div class="content-section visible" id="sec1">
+      <div class="quiz-title">«Mâncare» — ի՞նչ է նշանակում</div>
+      <div class="quiz-sub">Ընտրիր ճիշտ թարգմանությունը</div>
+      <div class="options-grid" id="optGrid">
+        <button class="opt-card" onclick="checkAnswer(this, false)"><span class="opt-letter">Ա</span>Ըն. / Ընկեր</button>
+        <button class="opt-card" onclick="checkAnswer(this, true)"><span class="opt-letter">Բ</span>Ուտ. / Կ-ուր</button>
+        <button class="opt-card" onclick="checkAnswer(this, false)"><span class="opt-letter">Գ</span>Ջ. / Ջուր</button>
+        <button class="opt-card" onclick="checkAnswer(this, false)"><span class="opt-letter">Դ</span>Ս. / Սիրտ</button>
+      </div>
+      <div class="feedback-toast" id="feedbackToast">
+        <div class="ft-icon" id="ftIcon"></div>
+        <div>
+          <div class="ft-title" id="ftTitle"></div>
+          <div class="ft-msg" id="ftMsg"></div>
+        </div>
+      </div>
+      <button class="btn-continue" id="continueBtn" disabled onclick="goTo(2)">Շ-ել →</button>
+    </div>
+
+    <!-- SECTION 3: CONVERSATION -->
+    <div class="content-section" id="sec2">
+      <div class="conv-scene">
+        <div class="scene-location">
+          <div class="scene-emoji">🍽️</div>
+          <div>
+            <div class="scene-name">Ռ-ական Ռ. «La Mama»</div>
+            <div class="scene-sub">Բ-եստ, Ռ-ինիա</div>
+          </div>
+        </div>
+        <div class="chat-bubbles">
+          <div class="bubble ai">
+            <div class="bubble-name">Andrei (Մ-ույց)</div>
+            <div class="bubble-inner">Bună ziua! Ce doriți să comandați astăzi? 🙂</div>
+          </div>
+          <div class="bubble ai">
+            <div class="bubble-inner" style="background:rgba(232,169,48,0.15); color:rgba(255,255,255,0.7); font-size:0.82rem;">
+              💡 Թ-ն՝ «Բ-ի՜ ծ-ա! Ի՞նչ կուզ. պ-ել այս-օ.»
+            </div>
+          </div>
+          <div class="bubble user" id="userBubble" style="display:none">
+            <div class="bubble-name" style="text-align:right;">Դ-ու</div>
+            <div class="bubble-inner" id="userBubbleText">Vreau mâncare românească, vă rog.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mic-area">
+        <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎙️</button>
+        <div class="mic-hint" id="micHint">Ս-ի՛ր կոն-ակ. Ա-ա, ապ. կ-ի</div>
+        <div style="font-size:0.8rem; color:rgba(255,255,255,0.3);">կամ</div>
+        <button class="opt-card" style="width:100%;" onclick="simulateSpeak()">
+          ✍️ «Vreau mâncare românească» — Ա-ե՛ս
+        </button>
+      </div>
+      <button class="btn-continue" onclick="goTo(3)" style="margin-top:1rem;">Հ-ջ. →</button>
+    </div>
+
+    <!-- SECTION 4: WRITING -->
+    <div class="content-section" id="sec3">
+      <div class="quiz-title">Գ-ի՛ ռ-ե-ն</div>
+      <div class="quiz-sub">Ա-ե ռ-ե-ն. «Ուզ. ռ-ա-ն ու-ք» — Պ-ե՛ բ-ա</div>
+      <textarea id="writeInput" placeholder="Grie aci..." style="width:100%; min-height:100px; background:rgba(255,255,255,0.06); border:2px solid rgba(255,255,255,0.1); border-radius:16px; padding:1.2rem; color:white; font-family:inherit; font-size:1rem; resize:none; margin-bottom:1.2rem; outline:none; transition:border 0.2s;" onfocus="this.style.borderColor='var(--terracotta)'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+      <button class="btn-continue" onclick="checkWrite()">Ստ-ե՛լ</button>
+      <div class="feedback-toast" id="writeFeedback" style="margin-top:1rem;">
+        <div class="ft-icon" id="wfIcon"></div>
+        <div>
+          <div class="ft-title" id="wfTitle"></div>
+          <div class="ft-msg" id="wfMsg"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5: COMPLETE -->
+    <div class="content-section" id="sec4" style="text-align:center; padding-top:2rem;">
+      <div style="font-size:5rem; margin-bottom:1.5rem; animation: floatIn 0.5s ease;">🎉</div>
+      <div style="font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:700; margin-bottom:0.8rem; animation: floatIn 0.5s 0.1s ease both;">Bravo!</div>
+      <div style="color:rgba(255,255,255,0.6); font-size:1rem; line-height:1.7; max-width:400px; margin:0 auto 2.5rem; animation: floatIn 0.5s 0.2s ease both;">
+        Դ-ն ա-ե-ցիր «Ռ-ստ. Բ-ա-շ.» — «Mâncare» ա-ամ-ացիր 3 ձ-ով։
+      </div>
+      <div style="display:flex; gap:1rem; justify-content:center; margin-bottom:2.5rem; animation: floatIn 0.5s 0.3s ease both;">
+        <div style="background:rgba(91,168,160,0.15); border:1px solid rgba(91,168,160,0.3); border-radius:16px; padding:1.2rem 1.8rem; text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--gold);">+20</div>
+          <div style="font-size:0.78rem; color:rgba(255,255,255,0.4);">XP</div>
+        </div>
+        <div style="background:rgba(212,97,74,0.15); border:1px solid rgba(212,97,74,0.3); border-radius:16px; padding:1.2rem 1.8rem; text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--terracotta);">100%</div>
+          <div style="font-size:0.78rem; color:rgba(255,255,255,0.4);">Ճ-ություն</div>
+        </div>
+        <div style="background:rgba(232,169,48,0.1); border:1px solid rgba(232,169,48,0.2); border-radius:16px; padding:1.2rem 1.8rem; text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:700; color:var(--mint);">15↑</div>
+          <div style="font-size:0.78rem; color:rgba(255,255,255,0.4);">Streak</div>
+        </div>
+      </div>
+      <a href="dashboard.html" class="btn-continue" style="display:inline-block; text-decoration:none; max-width:none; width:auto;">← Ծ-ագիր</a>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <aside class="lesson-panel">
+
+    <div class="panel-section">
+      <h4>📝 Դ-ի Բ-ա-շ.</h4>
+      <div class="vocab-list">
+        <div class="vocab-item done">
+          <div class="vi-word">Bun / Bună</div>
+          <div class="vi-tr">Լ. / Բ.</div>
+          <div class="vi-status">✓</div>
+        </div>
+        <div class="vocab-item current">
+          <div class="vi-word">Mâncare</div>
+          <div class="vi-tr">Ու-ք / Կ-ուր</div>
+          <div class="vi-status">▶</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vi-word">A comanda</div>
+          <div class="vi-tr">Պ-ել</div>
+          <div class="vi-status">—</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vi-word">Vă rog</div>
+          <div class="vi-tr">Խ-ք</div>
+          <div class="vi-status">—</div>
+        </div>
+        <div class="vocab-item">
+          <div class="vi-word">Chelner / ă</div>
+          <div class="vi-tr">Մ-ույց</div>
+          <div class="vi-status">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hint-box">
+      <h4>💡 Ու-ի Ա-ուն</h4>
+      <div class="hint-text">«Mâncare» → «a mânca» բ-ե-ն (ու-ել)։ Ռ-ե-ում գ-ա-ն. «mâncarea» (հ-ա-ձ.)։ Կ-թ-ե-ն շ-ա-ться։</div>
+    </div>
+
+    <div class="score-box">
+      <div class="score-item">
+        <div class="score-val" style="color:var(--mint);">2/2</div>
+        <div class="score-label">Ճ-իտ</div>
+      </div>
+      <div class="score-item">
+        <div class="score-val" style="color:var(--gold);">87%</div>
+        <div class="score-label">Ա-ս. Ճ.</div>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<script>
+let currentSection = 1;
+const totalSections = 5;
+const tabs = ['tab1','tab2','tab3','tab4'];
+const secs = ['sec0','sec1','sec2','sec3','sec4'];
+
+function goTo(idx) {
+  secs.forEach((s, i) => {
+    document.getElementById(s).classList.toggle('visible', i === idx);
+  });
+  tabs.forEach((t, i) => {
+    const el = document.getElementById(t);
+    if (!el) return;
+    el.classList.remove('active', 'done');
+    if (i < idx - 1) el.classList.add('done');
+    else if (i === idx - 1) el.classList.add('active');
+  });
+  currentSection = idx;
+  const prog = Math.round((idx / (totalSections - 1)) * 100);
+  document.getElementById('progressBar').style.width = prog + '%';
+  document.getElementById('stepLabel').textContent = `Ք. ${idx + 1} / ${totalSections}`;
+}
+
+function checkAnswer(btn, correct) {
+  const opts = document.querySelectorAll('.opt-card');
+  opts.forEach(o => o.disabled = true);
+
+  const toast = document.getElementById('feedbackToast');
+  const icon = document.getElementById('ftIcon');
+  const title = document.getElementById('ftTitle');
+  const msg = document.getElementById('ftMsg');
+
+  if (correct) {
+    btn.classList.add('selected-correct');
+    toast.className = 'feedback-toast show correct';
+    icon.textContent = '🎉';
+    title.textContent = 'Ճ-ի՜տ!';
+    msg.textContent = '«Mâncare» = Ու-ք։ Կ-ա-ացար';
+  } else {
+    btn.classList.add('selected-wrong');
+    document.querySelectorAll('.opt-card')[1].classList.add('selected-correct');
+    toast.className = 'feedback-toast show wrong';
+    icon.textContent = '💙';
+    title.textContent = 'Ո-ե՜ %-ան';
+    msg.textContent = 'Ճ-ի-ն «Ու-ք» էր։ Հ. — 2-ն կ-ա-ա!';
+  }
+
+  document.getElementById('continueBtn').disabled = false;
+}
+
+function toggleMic() {
+  const btn = document.getElementById('micBtn');
+  btn.classList.toggle('listening');
+  const hint = document.getElementById('micHint');
+  if (btn.classList.contains('listening')) {
+    btn.textContent = '⏹';
+    hint.textContent = 'Լ-ում... Ա-ա, ա-ե-ս';
+    setTimeout(() => simulateSpeak(), 2500);
+  } else {
+    btn.textContent = '🎙️';
+    hint.textContent = 'Ս-ի՛ր կ-ա-կ.';
+  }
+}
+
+function simulateSpeak() {
+  const btn = document.getElementById('micBtn');
+  btn.classList.remove('listening');
+  btn.textContent = '🎙️';
+  document.getElementById('micHint').textContent = '⭐ Հ-ա-ի կ-ատ. ➜ Շ-ե-ցի-ր';
+  document.getElementById('userBubble').style.display = 'block';
+}
+
+function checkWrite() {
+  const val = document.getElementById('writeInput').value.trim().toLowerCase();
+  const correct = val.includes('vreau') && val.includes('mâncare');
+  const feedback = document.getElementById('writeFeedback');
+  const icon = document.getElementById('wfIcon');
+  const title = document.getElementById('wfTitle');
+  const msg = document.getElementById('wfMsg');
+
+  if (correct) {
+    feedback.className = 'feedback-toast show correct';
+    icon.textContent = '✅';
+    title.textContent = 'Ա-ա-ը կ-ա-ղ! Եր-ա-ն';
+    msg.textContent = 'Կ-ա-մ... → Հ-ի-ն կ-ե-ք!';
+    setTimeout(() => goTo(4), 1500);
+  } else {
+    feedback.className = 'feedback-toast show wrong';
+    icon.textContent = '💡';
+    title.textContent = 'Մ-ոտ ե-ս!';
+    msg.textContent = 'Ա-ե՛ Vreau + mâncare հ-ա-ն.';
+  }
+}
+
+function playAudio() {
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance('Mâncare');
+    u.lang = 'ro-RO';
+    speechSynthesis.speak(u);
+  }
+}
+
+goTo(1);
+</script>
+</body>
+</html>
