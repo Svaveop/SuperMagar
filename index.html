@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romaera — Սովորիր Ռումիներեն</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="topbar">
+    <span class="logo">Romaera</span>
+    <div class="streak-badge">🔥 7 օր</div>
+  </div>
+
+  <div class="glass-card welcome-banner">
+    <div style="font-size:2.2rem">👋</div>
+    <div>
+      <div class="greet">Բarев, Արam</div>
+      <div class="sub">Sharakinank ayn tegh, vor kangel es</div>
+    </div>
+  </div>
+
+  <div class="glass-card wod-card">
+    <div class="wod-label">✨ Օրvา bAR</div>
+    <div class="word-ro">Bună ziua</div>
+    <div class="word-ipa">[ˈbunə ˈziwa]</div>
+    <div class="word-hy">Բarev Dzez</div>
+    <div class="word-example">— Bună ziua! Cum vă numiți? · Barév dzez, inch e dzyer anuné?</div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="chip chip-purple">👁 Tesats</span>
+      <span class="chip chip-teal">🔊 Lsir</span>
+    </div>
+  </div>
+
+  <div class="glass-card moti-banner">
+    🎯 Erkek 8 bAR sovoretsir — aysor aveletstsu evs 5
+  </div>
+
+  <div class="section-title">💬 Ugekits</div>
+  <div class="section-sub">Asa inch kuzes sovorel</div>
+
+  <div class="glass-card" style="padding:18px;margin-bottom:20px;">
+    <div class="chat-area" id="chatArea">
+      <div class="bubble bubble-assistant">
+        Barév 😊 Yes qo Ruminerén ugekitsn em. Inch kuzenayir sovorel aysor — bá'er, artasanútyun, te kendaghayan artahaytutyunn?
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Grir haghordagruttyun...">
+      <button class="send-btn" id="sendBtn">➤</button>
+    </div>
+  </div>
+
+  <div class="section-title">⚡ Arags Das</div>
+  <div class="section-sub">Entir ayn, inch qez hetaqrqrum e hima</div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
+    <a href="lesson.html" class="btn btn-primary">📚 Aysorvá Das</a>
+    <a href="extra.html" class="btn btn-ghost">🎮 Khagal</a>
+    <a href="lesson.html" class="btn btn-ghost">📖 Bárer</a>
+  </div>
+
+  <div class="glass-card" style="padding:20px;margin-bottom:24px;">
+    <div style="font-family:'Sora',sans-serif;font-weight:700;margin-bottom:16px;font-size:1rem;">📊 Ays Shabat</div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>🔤 Barapashar</span><span>68%</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%" data-target="68"></div></div>
+    </div>
+    <div style="height:10px"></div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>📝 Kerakanútyun</span><span>45%</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%;background:linear-gradient(90deg,#43e7c0,#2dd4bf)" data-target="45"></div></div>
+    </div>
+    <div style="height:10px"></div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>🎙 Khosaktsuttyun</span><span>30%</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:0%;background:linear-gradient(90deg,#f472b6,#ff6b9d)" data-target="30"></div></div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-item active"><span class="nav-icon">🏠</span><span>Glkhavór</span></a>
+  <a href="lesson.html" class="nav-item"><span class="nav-icon">📚</span><span>Das</span></a>
+  <a href="extra.html" class="nav-item"><span class="nav-icon">🎮</span><span>Khagér</span></a>
+  <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span>Profíl</span></a>
+</nav>
+
+<div class="toast" id="toast"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
