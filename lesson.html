@@ -1,114 +1,64 @@
 <!DOCTYPE html>
-<html lang="hy">
+<html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Դաս — Română</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>SuperMagar — Армянский</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
+
 <body>
-<div class="page">
-  <div class="top-header fade-up">
-    <div>
-      <div class="logo">Aujourd'hui ✦</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Քո այսօրվա դասը</div>
-    </div>
-    <div class="streak">🔥 5 օր</div>
-  </div>
 
-  <div style="padding:0 24px 24px;" class="fade-up delay-1">
-    <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
-      <span style="font-size:12px;color:var(--text-muted);">Օրվա առաջընթաց</span>
-      <span style="font-size:12px;color:var(--accent4);font-weight:700;" id="progressTxt">0 / 4</span>
-    </div>
-    <div class="progress-track">
-      <div class="progress-fill" id="lessonProgress" style="width:0%;"></div>
-    </div>
-  </div>
-
-  <div class="daily-banner fade-up delay-1" style="margin:0 16px 24px;">
-    <div class="daily-emoji">✨</div>
-    <div>
-      <div style="font-size:11px;color:var(--accent4);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">Օրվա արտահայտություն</div>
-      <div class="daily-word">Ce mai faci?</div>
-      <div class="daily-sub">«Ինչպե՞ս ես» — ամենօրյա հարց 😊</div>
-    </div>
-  </div>
-
-  <div class="section-title fade-up delay-2">Ընտրիր, ինչից սկսել 👇</div>
-  <div class="section-subtitle fade-up delay-2">Կարող ես ցանկացած հաջորդականությամբ</div>
-
-  <div class="lesson-cards">
-    <div class="lesson-card purple fade-up delay-2" data-card="words" onclick="openLesson('words')">
-      <span class="lesson-card-icon">📖</span>
-      <div class="lesson-card-title">Բառեր</div>
-      <div class="lesson-card-desc">Նոր բառեր + արտասանություն</div>
-    </div>
-    <div class="lesson-card teal fade-up delay-3" data-card="grammar" onclick="openLesson('grammar')">
-      <span class="lesson-card-icon">✏️</span>
-      <div class="lesson-card-title">Քերականություն</div>
-      <div class="lesson-card-desc">Կառուցվածք + կանոն</div>
-    </div>
-    <div class="lesson-card red fade-up delay-3" data-card="conversation" onclick="openLesson('conversation')">
-      <span class="lesson-card-icon">💬</span>
-      <div class="lesson-card-title">Զրույց</div>
-      <div class="lesson-card-desc">Իրական իրավիճակ</div>
-    </div>
-    <div class="lesson-card gold fade-up delay-4" data-card="test" onclick="openLesson('test')">
-      <span class="lesson-card-icon">⚡</span>
-      <div class="lesson-card-title">Արագ Թեստ</div>
-      <div class="lesson-card-desc">Ստուգիր ինքդ քեզ</div>
-    </div>
-  </div>
-
-  <div style="margin:28px 16px 20px;" class="fade-up delay-4">
-    <div class="card" style="padding:18px 20px;display:flex;gap:14px;align-items:flex-start;">
-      <span style="font-size:28px;">🧠</span>
+  <br>
+  <div class="page">
+    <div class="top-header fade-up">
       <div>
-        <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Հետաքրքիր փաստ</div>
-        <div style="font-size:12px;color:var(--text-muted);line-height:1.7;">Ռումիներենը լատինական ծագում ունի — ֆրանսերենի, իտալերենի հետ ընդհանուր 60% բառ 🌍</div>
+        <div class="logo">✦ SuperMagar ✦</div>
+        <br> <br>
+    <div class="daily-banner fade-up delay-1" style="margin:0 16px 24px;">
+      <div class="daily-emoji">✨</div>
+      <div>
+        <div
+          style="font-size:11px;color:var(--accent4);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:4px;">
+          Вырожение дня</div>
+        <div class="daily-word">Ինչպե՞ս ես</div>
+        <div class="daily-sub">Как дела? — (Ежедневный вопрос) 😊</div>
       </div>
     </div>
-  </div>
 
-  <div style="padding:0 16px;display:none;opacity:0;transition:opacity 0.4s;" id="finishBtn">
-    <a href="extra.html" class="btn btn-primary" style="width:100%;justify-content:center;">
-      🎉 Ավարտել դասը — Առաջ!
-    </a>
-  </div>
-</div>
+    <div class="section-title fade-up delay-2">Выбери с чего начать 👇</div>
+    <div class="section-subtitle fade-up delay-2">Можешь выбрать любую последовательность</div>
 
-<div class="modal-overlay" id="lessonModal">
-  <div class="modal-sheet"></div>
-</div>
+    <div class="lesson-cards">
+      <div class="lesson-card purple fade-up delay-2" data-card="words" onclick="openLesson('words')">
+        <span class="lesson-card-icon">📖</span>
+        <div class="lesson-card-title">Слова</div>
+        <div class="lesson-card-desc">Новое слово + вырожение</div>
+      </div>
+      <div class="lesson-card teal fade-up delay-3" data-card="grammar" onclick="openLesson('grammar')">
+        <span class="lesson-card-icon">✏️</span>
+        <div class="lesson-card-title">Грамматика</div>
+        <div class="lesson-card-desc">Структура + правило</div>
+      </div>
+      <div class="lesson-card red fade-up delay-3" data-card="conversation" onclick="openLesson('conversation')">
+        <span class="lesson-card-icon">💬</span>
+        <div class="lesson-card-title">Беседа</div>
+        <div class="lesson-card-desc">Живой случай</div>
+      </div>
+      <div class="lesson-card gold fade-up delay-4" data-card="test" onclick="openLesson('test')">
+        <span class="lesson-card-icon">⚡</span>
+        <div class="lesson-card-title">Быстрый тест</div>
+        <div class="lesson-card-desc">Проверь себя</div>
+      </div>
+    </div>
 
-<nav class="bottom-nav">
-  <a href="index.html" class="nav-item"><span class="nav-icon">💬</span><span>Օգնական</span></a>
-  <a href="lesson.html" class="nav-item active"><span class="nav-icon">📖</span><span>Դաս</span></a>
-  <a href="extra.html" class="nav-item"><span class="nav-icon">🎮</span><span>Խաղեր</span></a>
-  <a href="profile.html" class="nav-item"><span class="nav-icon">👤</span><span>Պրոֆիլ</span></a>
-</nav>
-
-<script src="js/app.js"></script>
-<script>
-function lessonPartDone(key, label) {
-  completedParts.add(key);
-  closeModal('lessonModal');
-  showToast('✅ ' + label + ' — կատարված!');
-  updateLessonCards();
-  const pct = (completedParts.size / 4) * 100;
-  const bar = document.getElementById('lessonProgress');
-  const txt = document.getElementById('progressTxt');
-  if (bar) bar.style.width = pct + '%';
-  if (txt) txt.textContent = completedParts.size + ' / 4';
-  if (completedParts.size >= 4) {
-    setTimeout(() => {
-      const fb = document.getElementById('finishBtn');
-      if (fb) { fb.style.display = 'flex'; setTimeout(() => fb.style.opacity = '1', 50); }
-      showToast('🎉 Կատարյալ! Բոլոր մասերը ավարտվեցին!');
-    }, 600);
-  }
-}
-</script>
+  <nav class="bnav">
+    <a href="index.html" class="ni"><span class="ic">💬</span>Главная</a>
+    <a href="lesson.html" class="ni-active"><span class="ic">📘</span>Уроки</a>
+    <a href="extra.html" class="ni"><span class="ic">🎮</span>Игры</a>
+  </nav>
+  <script src="./app.js"></script>
 </body>
+
 </html>
