@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=PT+Sans+Narrow:wght@400;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container-info">
+        <div id="info-cont">
+            <div id="img-info">+</div>
+            <div id="text-info"><p id="fullNameP"></p></div>
+        </div>
+    </div>
+
+    <button id="add" class="button-ordinary">+ Add</button>
+
+    <!-- <div id="newRequest">
+        <h3>ADD</h3>
+        <form action="">
+            <input type="text">
+            <button type="submit">Send Request</button>
+        </form>
+    </div> -->
+
+    <div id="request">
+        <div class="close-cont"><div id="close">X</div></div>
+        <h3>Add</h3>
+        <form>
+            <input type="text" placeholder="Enter your name" id="name">
+            <input type="text" placeholder="Enter your surname" id="surname">
+            <input type="password" placeholder="Enter your password" id="password">
+            <button id="but">
+                Send Request
+            </button>
+        </form>
+    </div>
+
+    <div id="card-cont"></div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
